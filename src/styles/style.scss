@@ -89,8 +89,8 @@ i.fa-times {
   height: 100vh;
 
   @include section-bg;
-
-  overflow: scroll;
+ 
+  overflow-y: auto;
 
   @include media-lg {
     background: url('../images/section_bg1.jpg');

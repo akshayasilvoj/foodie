@@ -1,5 +1,3 @@
-let category;
-
 const getMenu = (category) => {
   fetch(`https://themealdb.com/api/json/v1/1/filter.php?c=${category}`)
     .then((res) => res.json())
@@ -28,34 +26,13 @@ const getMenu = (category) => {
         meal.style.backgroundSize = 'cover';
         menuItemsContainer.appendChild(meal);
       });
-    })
-    .catch();
+    });
 };
 
-const createMenuSection = () => {
-  const menuSection = document.createElement('section');
-  menuSection.setAttribute('id', 'menu-section');
-  menuSection.innerHTML = `<h2>Menu</h2>
-  <div id="selection">
-  <select>
-    <option value="vegan">Vegan</option>
-    <option value="starter">Starter</option>
-    <option value="side">Side</option>
-    <option value="pasta">Pasta</option>
-    <option value="seafood">Seafood</option>
-    <option value="chicken">Chicken</option>
-    <option value="breakfast">Breakfast</option>
-    <option value="vegetarian">Vegetarian</option>
-    <option value="dessert">Dessert</option>
-  </select>
-  <div id="menu-items"></div>
-</div>
-  `;
-  document.getElementById('content').appendChild(menuSection);
+const selection = (category) => {
   const menuItemsContainer = document.getElementById('menu-items');
-
-  const selection = document.querySelector('select');
-  selection.addEventListener('change', (e) => {
+  const selectionItems = document.querySelector('select');
+  selectionItems.addEventListener('change', (e) => {
     switch (e.target.value) {
       case 'vegan':
         menuItemsContainer.innerHTML = '';
@@ -109,6 +86,30 @@ const createMenuSection = () => {
         break;
     }
   });
+};
+
+const createMenuSection = () => {
+  let category;
+  const menuSection = document.createElement('section');
+  menuSection.setAttribute('id', 'menu-section');
+  menuSection.innerHTML = `<h2>Menu</h2>
+  <div id="selection">
+  <select>
+    <option value="vegan">Vegan</option>
+    <option value="starter">Starter</option>
+    <option value="side">Side</option>
+    <option value="pasta">Pasta</option>
+    <option value="seafood">Seafood</option>
+    <option value="chicken">Chicken</option>
+    <option value="breakfast">Breakfast</option>
+    <option value="vegetarian">Vegetarian</option>
+    <option value="dessert">Dessert</option>
+  </select>
+  <div id="menu-items"></div>
+</div>
+  `;
+  document.getElementById('content').appendChild(menuSection);
+  selection(category);
 };
 
 export { createMenuSection, getMenu };
